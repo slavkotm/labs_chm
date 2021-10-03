@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 int WIDTH = 6;
 int HEIGHT = 4;
 int SIZE = 21;
@@ -80,7 +81,91 @@ void print_matr(double **matr, int HEIGHT, int WIDTH) {
 	}
 }
 
-double find_cond_matr(double **start_matr, double *found_matr);
+void check_unit_matr(double **start_matr, double **found_matr, int SIZE) {
+
+	double **tmp_matr = malloc(SIZE * sizeof(double*));
+        for(int i = 0; i < SIZE; i++)
+                tmp_matr[i] = malloc(SIZE * sizeof(double));
+
+        for(int i = 0; i < SIZE; i++) {
+                for(int j = 0; j < SIZE; j++) {
+                        tmp_matr[i][j] = 0;
+                        for(int k = 0; k < SIZE; k++)
+                                tmp_matr[i][j] += start_matr[i][k] * found_matr[k][j];
+                }
+        }
+
+	for(int i = 0; i < SIZE; i++) {
+                for(int j = 0; j < SIZE; j++) {
+                        printf("%.3lf ", tmp_matr[i][j]);
+                }printf("\n");
+        }
+
+        for(int i = 0; i < SIZE; i++)
+                free(tmp_matr[i]);
+        free(tmp_matr);
+}
+
+double find_cond_matr(double **start_matr, double **found_matr, int SIZE) {
+
+	double cond = 0.0;
+	double tmp_cond = 0.0;
+
+	double cond_1 = 0.0;
+	double tmp_cond_1 = 0.0;
+
+	double cond_2 = 0.0;
+	double tmp_cond_2 = 0.0;
+
+	double cond_3 = 0.0;
+	double tmp_cond_3 = 0.0;
+
+	for(int i = 0; i < SIZE; i++) {
+		for(int j = 0; j < SIZE; j++) {
+			if(start_matr[j][i] < (double)0)
+				start_matr[j][i] = start_matr[j][i] * (double)(-1);
+			tmp_cond += start_matr[j][i];
+		}
+		if(cond < tmp_cond)
+			cond = tmp_cond;
+		tmp_cond = 0.0;
+	}
+
+	for(int i = 0; i < SIZE; i++) {
+                for(int j = 0; j < SIZE; j++) {
+                        if(found_matr[j][i] < (double)0)
+                                found_matr[j][i] = found_matr[j][i] * (double)(-1);
+                        tmp_cond_1 += found_matr[j][i];
+                }
+                if(cond_1 < tmp_cond_1)
+                        cond_1 = tmp_cond_1;
+                tmp_cond_1 = 0.0;
+        }
+
+	for(int i = 0; i < SIZE; i++) {
+                for(int j = 0; j < SIZE; j++) {
+                        if(start_matr[i][j] < (double)0)
+                                start_matr[i][j] = start_matr[i][j] * (double)(-1);
+                        tmp_cond_2 += start_matr[i][j];
+                }
+                if(cond_2 < tmp_cond_2)
+                        cond_2 = tmp_cond_2;
+                tmp_cond_2 = 0.0;
+        }
+
+        for(int i = 0; i < SIZE; i++) {
+                for(int j = 0; j < SIZE; j++) {
+                        if(found_matr[i][j] < (double)0)
+                                found_matr[i][j] = found_matr[i][j] * (double)(-1);
+                        tmp_cond_3 += found_matr[i][j];
+                }
+                if(cond_3 < tmp_cond_3)
+                        cond_3 = tmp_cond_3;
+                tmp_cond_3 = 0.0;
+        }
+
+	return cond_2 * cond_3;
+}
 
 int main()
 {
@@ -89,6 +174,7 @@ int main()
 	
 	double **begin_matr = malloc(HEIGHT * sizeof(double*));
 	double **temp_matr = malloc(HEIGHT * sizeof(double*));
+	double **found_matr = malloc(4 * sizeof(double*));
 	double *out_arr = malloc(SIZE * sizeof(double));
 	double *arr_b = malloc(WIDTH * sizeof(double));
 	double *arr_xs = malloc(SIZE_XS * sizeof(double));
@@ -99,6 +185,9 @@ int main()
 
 	for(int i = 0; i < HEIGHT; i++)
 		temp_matr[i] = malloc(WIDTH * sizeof(double));
+
+	for(int i = 0; i < 4; i++)
+		found_matr[i] = malloc(4 * sizeof(double));
 
 	printf("\nTable1\n");
 	print_matr(begin_matr, HEIGHT, WIDTH);
@@ -139,11 +228,73 @@ int main()
 	}
 	printf("\n");
 
+	int k = 3, l = 0;
+	for(int i = 0; i < 4; i++) {
+		for(int j = 0; j < 4; j++) {
+			found_matr[j][i] = arr_xs[k + l];
+			k--;
+		}
+		k = 3;
+		l += 8;
+	}
+	printf("\n");
+	for(int i = 0; i < 4; i++) {
+		for(int j = 0; j < 4; j++) {
+			printf("%.3lf ", found_matr[i][j]);
+
+		}printf("\n");
+	}
+
+	double **first_matr = malloc(4 * sizeof(double*));
+	for(int i = 0; i < 4; i++)
+		first_matr[i] = malloc(4 * sizeof(double));
+
+	first_matr[0][0] = 7.22;
+        first_matr[0][1] = 1.42;
+        first_matr[0][2] = -1.72;
+        first_matr[0][3] = 1.91;
+        
+        first_matr[1][0] = 1.44;
+        first_matr[1][1] = 6.33;
+        first_matr[1][2] = 1.11;
+        first_matr[1][3] = -1.82;
+        
+        first_matr[2][0] = -1.72;
+        first_matr[2][1] = 1.11;
+        first_matr[2][2] = 6.24;
+        first_matr[2][3] = 1.42;
+        
+        first_matr[3][0] = 1.91;
+        first_matr[3][1] = -1.82;
+        first_matr[3][2] = 1.42;
+        first_matr[3][3] = 7.55;
+
+
+	printf("\n");
+        for(int i = 0; i < 4; i++) {
+                for(int j = 0; j < 4; j++) {
+                        printf("%f ", first_matr[i][j]);
+
+                }printf("\n");
+        }
+
+	check_unit_matr(first_matr, found_matr, 4);
+	printf("%.3lf\n" ,find_cond_matr(first_matr, found_matr, 4));
+
+
+        for(int i = 0; i < 4; i++)
+		free(first_matr[i]);
+	free(first_matr);
+
 	free(arr_xs);
 
 	free(arr_b);
 
 	free(out_arr);
+
+	for(int i = 0; i < 4; i++)
+                free(found_matr[i]);
+        free(found_matr);
 	
 	for(int i = 0; i < HEIGHT; i++)
                 free(temp_matr[i]);
