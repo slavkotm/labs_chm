@@ -2,9 +2,11 @@
 #include <math.h>
 #include <stdlib.h>
 
-void find_xs(double* x, double* arr, double* tmp_arr, double e, int i) {
+//рекурсивная функция, которая находит приближенное решение СЛАУ 3 переменных
+//методом простых итераций.
+void find_xs(double* x, double* arr, double* tmp_arr, double e, int j) {
 
-	i++;
+	j++;
 	x[0] = (-0.5) * arr[1] + (-0.05) * arr[2] + (-1.45);
     	x[1] = (-0.02) * arr[0] + (-0.144) * arr[2] + (-0.14);
 	x[2] = (0.179856) * arr[0] + (-0.719424) * arr[1] + (-7.884892);
@@ -23,13 +25,13 @@ void find_xs(double* x, double* arr, double* tmp_arr, double e, int i) {
 			max = tmp_arr[i];
 
 
-	printf("%d, %.6lf, %.6lf, %.6lf, %.6lf\n", i, x[0], x[1], x[2], max);
+	printf("%d, %.6lf, %.6lf, %.6lf, %.6lf\n", j, x[0], x[1], x[2], max);
 
 	tmp_arr[0] = tmp_arr[1] = tmp_arr[2] = (double)0;
 	arr[0] = arr[1] = arr[2] = (double)0;
 
 	if(max > e)
-		find_xs(arr, x, tmp_arr, e, i);
+		find_xs(arr, x, tmp_arr, e, j);
 	else 
 		return;
 
