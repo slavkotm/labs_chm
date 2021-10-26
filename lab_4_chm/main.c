@@ -8,7 +8,7 @@ void find_xs(double* x, double* arr, double* tmp_arr, double e, int j) {
 
 	j++;
 	x[0] = (-0.5) * arr[1] + (-0.05) * arr[2] + (-1.45);
-    	x[1] = (-0.02) * arr[0] + (-0.144) * arr[2] + (-0.14);
+    x[1] = (-0.02) * arr[0] + (-0.144) * arr[2] + (-0.14);
 	x[2] = (0.179856) * arr[0] + (-0.719424) * arr[1] + (-7.884892);
 
 	for(int i = 0; i < 3; i++) {
