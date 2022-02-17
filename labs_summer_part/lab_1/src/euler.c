@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <math.h>
+#include "../header/euler.h"
 
 double found_function_y(double t) 
 { 
@@ -70,22 +69,4 @@ double euler_method_for_function_z(double h,
 
     return approximate_solution;
 }
-
-int main(int argc,
-         char **argv)
-{
-    printf("y(%.20lf) = %.20lf\n", (double)0.5, found_function_y((double)0.5));
-    printf("z(%.20lf) = %.20lf\n\n", (double)0.5, found_function_z((double)0.5));
-    
-    printf("%.6lf\n", euler_method_for_function_y((double)(0.1), 
-                      (double)5, 
-                      found_function_y((double)0))); 
-
-    printf("%.6lf\n", euler_method_for_function_z((double)(0.1), 
-                                                  (double)5, 
-                                                  found_function_z((double)0.5))); 
-
-    return 0;
-}
-
 
