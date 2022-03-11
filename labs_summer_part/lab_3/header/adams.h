@@ -20,17 +20,19 @@ struct node *create_list(double );
 
 struct node *add_item_to_list(struct node *, double );
 
-double adams_extrapolation_method_3f(double y,
+double adams_extrapolation_method_4f(double y,
                                      double h,
                                      double dh,
                                      double d2h,
-                                     double d3h);
+                                     double d3h,
+                                     double d4h);
 
-double adams_interpolation_method_3f(double y,
+double adams_interpolation_method_4f(double y,
                                      double h,
                                      double dh,
                                      double d2h,
-                                     double d3h);
+                                     double d3h,
+                                     double d4h);
 
 double f(double x,
          double y);

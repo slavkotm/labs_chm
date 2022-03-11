@@ -6,7 +6,7 @@
 int main(int argc,
          char **argv)
 {
-    adams_method((double)(0.1), (double)0, (double)0, (double)6);
+    adams_method((double)(0.1), (double)0, (double)0, (double)7);
     return 0;
 }
 
