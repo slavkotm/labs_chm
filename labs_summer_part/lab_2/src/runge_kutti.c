@@ -79,23 +79,4 @@ void runge_kutti_method(double h,
         z = z + (((double)1)/((double)6))*(k12+(double)2*k22+(double)2*k32+k42);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
