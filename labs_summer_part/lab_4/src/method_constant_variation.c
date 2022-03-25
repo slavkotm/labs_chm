@@ -9,10 +9,10 @@ void first_diff_sys_equations(double a,
     double t = fisrt_start_value;
     double s = second_start_value;
 
-    double a0 = 1, b0 = -1, y0 = -1;
-    double a1 = 1, b1 = 0, y1 = 4;
-    /*double a0 = 1, b0 = -1, y0 = 2;
-    double a1 = 1, b1 = 1.5, y1 = 0;*/
+    /*double a0 = 1, b0 = -1, y0 = -1;
+    double a1 = 1, b1 = 0, y1 = 4;*/
+    double a0 = 1, b0 = -1, y0 = 2;
+    double a1 = 1, b1 = 1.5, y1 = 0;
 
     double z_a = 0, dz_a = 0;
     double z1_a = 0, dz1_a = 1;
@@ -117,17 +117,25 @@ double f3(double x,
           double s,
           double t)
 {
-    //return pow(x + 1, 2) * s + ((double)2 / (pow(x + 1, 2))) * t;
-    return -(x + 1) * s + (double)2 * t;
+    return pow(x + 1, 2) * s + ((double)2 / (pow(x + 1, 2))) * t;
+    //return -(x + 1) * s + (double)2 * t;
 }
 
 double f1(double x,
           double s,
           double t)
 {
-    //return pow(x + 1, 2) * s + ((double)2 / (pow(x + 1, 2))) * t + (double)1;
-    
-    return -(x + 1) * s + (double)2 * t + (double)2;
+    return pow(x + 1, 2) * s + ((double)2 / (pow(x + 1, 2))) * t + (double)1;
+    //return -(x + 1) * s + (double)2 * t + (double)2;
+}
+
+double yyx0()
+{
+    return ((double)(0.8994) - (double)(0.9994))/ (double)(0.1);
+}
+double yyxn()
+{
+    return ((double)(0.6413) - (double)(0.6909))/ (double)(0.1);
 }
 
 

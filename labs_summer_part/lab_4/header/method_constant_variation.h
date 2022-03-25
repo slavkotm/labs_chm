@@ -4,6 +4,9 @@
 #include <math.h>
 #include <stdlib.h>
 
+double yyx0();
+double yyxn();
+
 void first_diff_sys_equations(double a,
                               double b,
                               double h,
