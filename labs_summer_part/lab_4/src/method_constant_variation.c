@@ -9,10 +9,10 @@ void first_diff_sys_equations(double a,
     double t = fisrt_start_value;
     double s = second_start_value;
 
-    /*double a0 = 1, b0 = -1, y0 = -1;
-    double a1 = 1, b1 = 0, y1 = 4;*/
-    double a0 = 1, b0 = -1, y0 = 2;
-    double a1 = 1, b1 = 1.5, y1 = 0;
+    double a0 = 1, b0 = -1, y0 = -1;
+    double a1 = 1, b1 = 0, y1 = 4;
+    /*double a0 = 1, b0 = -1, y0 = 2;
+    double a1 = 1, b1 = 1.5, y1 = 0;*/
 
     double z_a = 0, dz_a = 0;
     double z1_a = 0, dz1_a = 1;
@@ -34,10 +34,14 @@ void first_diff_sys_equations(double a,
         s = s + h * f1(x, s, t);
         i++;
     }
+    i--;
+    z_b = arr1[i];
+    dz_b = arr1_s[i];
     i = 0;
-    z_b = t;
-    dz_b = s;
     //printf("\n");
+    
+    printf("%.4lf, %.4lf\n",z_b, dz_b);
+
 
     t = fisrt_start_value;
     s = second_start_value + (double)1;
@@ -51,10 +55,12 @@ void first_diff_sys_equations(double a,
         s = s + h * f3(x, s, t);
         i++;
     }
-    z1_b = t;
-    dz1_b = s;
+    i--;
+    z1_b = arr2[i];
+    dz1_b = arr2_s[i];
     i = 0;
 
+    printf("%.4lf, %.4lf\n",z1_b, dz1_b);
     //printf("\n");
 
     t = fisrt_start_value + (double)1;
@@ -69,9 +75,12 @@ void first_diff_sys_equations(double a,
         s = s + h * f3(x, s, t);
         i++;
     }
+    i--;
+    z2_b = arr3[i];
+    dz2_b = arr3_s[i];
     i = 0;
-    z2_b = t;
-    dz2_b = s;
+
+    printf("%.4lf, %.4lf\n",z2_b, dz2_b);
 
     double *tmp_arr = count_constants(a0, b0, y0, a1, b1, y1, z_a, z_b, z1_a, z1_b, z2_a, z2_b, dz_a, dz_b, dz1_a, dz1_b, dz2_a, dz2_b);
 
@@ -108,16 +117,17 @@ double f3(double x,
           double s,
           double t)
 {
-    return pow(x + 1, 2) * s + ((double)2 / (pow(x + 1, 2))) * t;
-    //return -(x + 1) * s + (double)2 * t;
+    //return pow(x + 1, 2) * s + ((double)2 / (pow(x + 1, 2))) * t;
+    return -(x + 1) * s + (double)2 * t;
 }
 
 double f1(double x,
           double s,
           double t)
 {
-    return pow(x + 1, 2) * s + ((double)2 / (pow(x + 1, 2))) * t + (double)1;
-    //return -(x + 1) * s + (double)2 * t + (double)2;
+    //return pow(x + 1, 2) * s + ((double)2 / (pow(x + 1, 2))) * t + (double)1;
+    
+    return -(x + 1) * s + (double)2 * t + (double)2;
 }
 
 
